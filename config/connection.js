@@ -5,8 +5,8 @@ const state ={
 };
 
 module.exports.connect = async function(done){
-    const uri = 'mongodb://localhost:27017';
-    const dbname = 'shopping';
+    const uri = "mongodb://localhost:27017";
+    const dbname = "Shopping";
 
     try{
         const client = await MongoClient.connect(uri);
