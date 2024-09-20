@@ -1,0 +1,6 @@
+userHeader : login button
+create login page(login.hbs) & signUp page(signUp.hbs)
+user.js : router.get('/login,(req,res)=>{res.render('user/login')})
+user.js : router.get('/signup,(req,res)=>{res.render('user/signUp')})
+user.js : post(signup) 
+
