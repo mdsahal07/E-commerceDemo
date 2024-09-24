@@ -6,14 +6,16 @@ module.exports = {
         db.get().collection('product').insertOne(product).then((data) => {
             callback(data.insertedId)
         }).catch((err) => {
+            console.log("Error found : " + err);
         })
     },
     getAllProducts: async () => {
         return new Promise((resolve, reject) => {
-            let products = db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
-            resolve(products)
-        }).catch((err) => {
-            reject(err)
+            db.get().collection(collection.PRODUCT_COLLECTION).find().toArray().then((products) => {
+                resolve(products)
+            }).catch((err) => {
+                reject(err)
+            })
         })
     },
     deleteProduct: (proId) => {
@@ -33,7 +35,7 @@ module.exports = {
             })
         })
     },
-    updateProductDetails: (proId, proDetails) => {
+    updateProductDetails: async (proId, proDetails) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: new ObjectId(proId) },
                 {
@@ -43,9 +45,9 @@ module.exports = {
                         Description: proDetails.Description,
                         Price: proDetails.Price
                     }
+                }).then((response) => {
+                    resolve();
                 })
-        }).then((response) => {
-            resolve()
         })
     },
 };

@@ -41,9 +41,15 @@ router.get('/editProduct/:id', async (req, res) => {
   res.render('admin/editProduct', { product })
 })
 
-router.post('/editProduct/:id', (req, res) => {
-  productHelper.updateProductDetails(req.params.id, req.body);
-  res.redirect('/admin');
+router.post('/editProduct/:id', async (req, res) => {
+  let image = req.files.image;
+  let imageId = req.params.id;
+  await productHelper.updateProductDetails(req.params.id, req.body).then(() => {
+    if (req.files.image) {
+      image.mv('./public/product-image/' + imageId + '.jpg')
+    }
+    res.redirect('/admin');
+  })
 })
 
 module.exports = router;
